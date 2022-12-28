@@ -1,0 +1,35 @@
+{
+  "name": "leo-macos-menu-bar",
+  "productName": "leo-macos-menu-bar",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "repository": {
+    "url": "https://github.com/vvvar/leo-menu-bar.git"
+  },
+  "keywords": [],
+  "author": "vov3sh",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "electron-context-menu": "^3.6.1",
+    "electron-squirrel-startup": "^1.0.0",
+    "menubar": "^9.2.3",
+    "update-electron-app": "^2.0.1"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
+    "electron": "22.0.0"
+  }
+}

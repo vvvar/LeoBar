@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>ChatGPT</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body class="myarrow">
+  <div class="page darwin">
+    <webview id="webview" src="https://dict.leo.org/" autosize="on"></webview>
+  </div>
+</body>
+<script>
+  var webview = document.getElementById('webview');
+  webview.addEventListener('dom-ready', function () {
+    const cssToInject = `
+      #searchBar {
+        display: none !important;
+      }
+      #goto-desktop {
+        display: none !important;
+      }
+      .l-dict-searchbar {
+        box-shadow: 0 1px 4px 0 rgba(var(--ion-box-shadow-color-rgb),.37) !important;
+        left: 0 !important;
+        position: fixed !important;
+        top: 0 !important;
+      }
+    `;
+    webview.insertCSS(cssToInject);
+  });
+</script>
+
+</html>
