@@ -1,4 +1,5 @@
-const { parsed } = require('dotenv').config();
+require('dotenv').config();
+
 module.exports = {
   publishers: [
     {
@@ -24,14 +25,14 @@ module.exports = {
     osxSign: {
       hardenedRuntime: false,
       gatekeeperAssess: false,
-      identity: parsed.MACOS_APPLE_IDENTITY,
+      identity: process.env.MACOS_APPLE_IDENTITY,
     },
     osxNotarize: {
       appBundleId: 'com.vvvoin.leobar',
       tool: 'notarytool',
-      appleId: parsed.MACOS_APPLE_ID,
-      appleIdPassword: parsed.MACOS_APPLE_PASSWORD,
-      teamId: parsed.MACOS_APPLE_TEAM_ID,
+      appleId: process.env.MACOS_APPLE_ID,
+      appleIdPassword: process.env.MACOS_APPLE_PASSWORD,
+      teamId: process.env.MACOS_APPLE_TEAM_ID,
     },
   },
   rebuildConfig: {},
