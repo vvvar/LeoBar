@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  release_on_linux:
+  build_on_linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,11 +14,11 @@ jobs:
           node-version: 14
       - name: install dependencies
         run: npm install
-      - name: publish
+      - name: build
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_ENV: production
-        run: npm run publish
+        run: npm run package
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
