@@ -20,7 +20,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: linux
-          path: ${{github.workspace}}\out\make
+          path: ${{github.workspace}}/out/
 
   build_on_mac:
     runs-on: macos-latest
@@ -36,8 +36,8 @@ jobs:
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: linux
-          path: ${{github.workspace}}\out\make
+          name: macos
+          path: ${{github.workspace}}/out/
 
   build_on_win:
     runs-on: windows-latest
@@ -53,5 +53,5 @@ jobs:
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: linux
-          path: ${{github.workspace}}\out\make
+          name: windows
+          path: ${{github.workspace}}/out/
