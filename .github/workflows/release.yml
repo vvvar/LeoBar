@@ -3,8 +3,25 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
 
 jobs:
+  release_on_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+        with:
+          node-version: 14
+      - name: install dependencies
+        run: npm install
+      - name: publish
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_ENV: production
+        run: npm run publish
+
   release_on_mac:
     runs-on: macos-latest
     steps:
@@ -49,6 +66,7 @@ jobs:
           MACOS_APPLE_PASSWORD: ${{ secrets.MACOS_APPLE_PASSWORD }}
           MACOS_APPLE_TEAM_ID: ${{ secrets.MACOS_APPLE_TEAM_ID }}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_ENV: production
         run: npm run publish
 
   release_on_win:
@@ -63,4 +81,5 @@ jobs:
       - name: publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_ENV: production
         run: npm run publish

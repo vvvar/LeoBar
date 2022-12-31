@@ -1,7 +1,32 @@
 require('dotenv').config();
 
-module.exports = {
-  publishers: [
+let publishers = [];
+let packagerConfig = {};
+let rebuildConfig = {};
+let makers = [
+  {
+    name: '@electron-forge/maker-squirrel',
+    config: {},
+  },
+  {
+    name: '@electron-forge/maker-dmg',
+    platforms: ['darwin'],
+    config: {},
+  },
+  {
+    name: '@electron-forge/maker-deb',
+    config: {},
+  },
+  {
+    name: '@electron-forge/maker-rpm',
+    config: {},
+  },
+  {
+    name: '@electron-forge/maker-zip',
+  },
+];
+if (process.env.NODE_ENV == 'production') {
+  publishers = [
     {
       name: '@electron-forge/publisher-github',
       config: {
@@ -13,8 +38,8 @@ module.exports = {
         draft: true,
       },
     },
-  ],
-  packagerConfig: {
+  ];
+  packagerConfig = {
     name: 'LeoBar',
     executableName: 'LeoBar',
     icon: 'assets/appIcon',
@@ -34,28 +59,7 @@ module.exports = {
       appleIdPassword: process.env.MACOS_APPLE_PASSWORD,
       teamId: process.env.MACOS_APPLE_TEAM_ID,
     },
-  },
-  rebuildConfig: {},
-  makers: [
-    {
-      name: '@electron-forge/maker-squirrel',
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-dmg',
-      platforms: ['darwin'],
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-deb',
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-rpm',
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-zip',
-    },
-  ],
-};
+  };
+}
+
+module.exports = { publishers, packagerConfig, rebuildConfig, makers };

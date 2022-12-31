@@ -1,10 +1,19 @@
-name: Feature
-on:
-  pull_request:
-    branches-ignore:
-      - main
+name: Pull Request
+on: pull_request
 
 jobs:
+  build_on_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+        with:
+          node-version: 14
+      - name: install dependencies
+        run: npm install
+      - name: build
+        run: npm run package
+
   build_on_mac:
     runs-on: macos-latest
     steps:
@@ -15,7 +24,7 @@ jobs:
       - name: install dependencies
         run: npm install
       - name: build
-        run: npm run make
+        run: npm run package
 
   build_on_win:
     runs-on: windows-latest
@@ -27,4 +36,4 @@ jobs:
       - name: install dependencies
         run: npm install
       - name: build
-        run: npm run make
+        run: npm run package
