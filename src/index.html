@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ChatGPT</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>ChatGPT</title>
-  <link rel="stylesheet" href="index.css" />
-</head>
-
-<body class="myarrow">
-  <div class="page darwin">
-    <webview id="webview" src="https://dict.leo.org/" autosize="on"></webview>
-  </div>
-</body>
-<script>
-  var webview = document.getElementById('webview');
-  webview.addEventListener('dom-ready', function () {
-    const cssToInject = `
+  <body class="myarrow">
+    <div class="page darwin">
+      <webview id="webview" src="https://dict.leo.org/" autosize="on"></webview>
+    </div>
+  </body>
+  <script>
+    var webview = document.getElementById('webview');
+    webview.addEventListener('dom-ready', function () {
+      const cssToInject = `
       #searchBar {
         display: none !important;
       }
@@ -29,8 +28,7 @@
         top: 0 !important;
       }
     `;
-    webview.insertCSS(cssToInject);
-  });
-</script>
-
+      webview.insertCSS(cssToInject);
+    });
+  </script>
 </html>
