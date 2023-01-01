@@ -1,4 +1,5 @@
 require('dotenv').config();
+const iconset = require('./src/iconset');
 
 const EXECUTABLE_NAME = 'LeoBar';
 
@@ -6,7 +7,7 @@ let publishers = [];
 let packagerConfig = {
   name: EXECUTABLE_NAME,
   executableName: EXECUTABLE_NAME,
-  icon: 'assets/appIcon',
+  icon: iconset.getAppIconPath(),
   appBundleId: 'com.vvvoin.leobar',
   extendInfo: {
     LSUIElement: 'true',
@@ -16,16 +17,18 @@ let rebuildConfig = {};
 let makers = [
   {
     name: '@electron-forge/maker-squirrel',
-    config: {},
+    config: {
+      setupIcon: iconset.getAppIconIcoPath(),
+    },
   },
   {
     name: '@electron-forge/maker-dmg',
     platforms: ['darwin'],
     config: {
       // Dirty hack - use unsupported format
-      //so appdmg would set default DMG icon.
+      // so appdmg would set default DMG icon.
       // Without it electron icon would be used.
-      icon: 'assets/appIcon.png',
+      icon: iconset.getAppIconPngPath(),
       // Faster, but OS X 10.11+ only.
       format: 'ULFO',
     },
