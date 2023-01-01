@@ -6,13 +6,16 @@
     <link rel="stylesheet" href="index.css" />
   </head>
 
-  <body class="myarrow">
+  <body id="body">
     <div class="page darwin">
       <webview id="webview" src="https://dict.leo.org/" autosize="on"></webview>
     </div>
   </body>
   <script>
-    var webview = document.getElementById('webview');
+    if (window.electron.platform.isMac || window.electron.platform.isLinux) {
+      document.getElementById('body').classList.add('myarrow');
+    }
+    const webview = document.getElementById('webview');
     webview.addEventListener('dom-ready', function () {
       const cssToInject = `
       #searchBar {

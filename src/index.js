@@ -12,26 +12,27 @@ const {
   Menu,
   webContents,
   clipboard,
-  globalShortcut,
   shell,
 } = require('electron');
 const { menubar } = require('menubar');
 const contextMenu = require('electron-context-menu');
 const path = require('path');
+const platform = require('./platform');
+const iconset = require('./iconset');
 
-const appIconPath = path.join(__dirname, '../assets', `appIconTemplate.png`);
-const trayIconPath = path.join(__dirname, '../assets', 'trayIconTemplate.png');
 const htmlPath = path.join(__dirname, `index.html`);
 
 function handleElectronAppReady() {
-  const trayImage = nativeImage.createFromPath(trayIconPath);
+  const trayImage = nativeImage.createFromPath(iconset.getTrayIconPath());
   const tray = new Tray(trayImage);
   const mb = menubar({
     browserWindow: {
       icon: trayImage,
-      transparent: appIconPath,
+      transparent: iconset.getAppIconPngPath(),
       webPreferences: {
         webviewTag: true,
+        sandbox: false,
+        preload: path.join(__dirname, 'preload.js'),
       },
       width: 500,
       height: 550,
@@ -46,16 +47,21 @@ function handleElectronAppReady() {
     preloadWindow: true,
   });
 
-  // Force Leo to switch to mobile
+  // Force Leo to switch to mobile.
   const mobileCookie = { url: 'https://dict.leo.org/', name: 'rewrite', value: 'mobile' };
   session.defaultSession.cookies.set(mobileCookie);
 
+  // Avoid a flash when opening your menubar app.
+  mb.app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true');
+
   mb.on('ready', () => {
     const { window } = mb;
-    if (process.platform !== 'darwin') {
-      window.setSkipTaskbar(true);
-    } else {
+    if (platform.isMac) {
       app.dock.hide();
+      // restore focus to previous app on hiding
+      mb.on('after-hide', () => mb.app.hide());
+    } else if (platform.isWindows) {
+      window.setSkipTaskbar(true);
     }
 
     const getLeoWebView = () => {
@@ -119,15 +125,10 @@ function handleElectronAppReady() {
     const menu = new Menu();
     Menu.setApplicationMenu(menu);
   });
-
-  if (process.platform == 'darwin') {
-    // restore focus to previous app on hiding
-    mb.on('after-hide', () => mb.app.hide());
-  }
 }
 
 function handleAllWindowsClosed() {
-  if (process.platform !== 'darwin') {
+  if (!platform.isMac) {
     app.quit();
   }
 }
