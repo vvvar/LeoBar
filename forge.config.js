@@ -4,7 +4,13 @@ const EXECUTABLE_NAME = 'LeoBar';
 
 let publishers = [];
 let packagerConfig = {
+  name: EXECUTABLE_NAME,
   executableName: EXECUTABLE_NAME,
+  icon: 'assets/appIcon',
+  appBundleId: 'com.vvvoin.leobar',
+  extendInfo: {
+    LSUIElement: 'true',
+  },
 };
 let rebuildConfig = {};
 let makers = [
@@ -15,7 +21,14 @@ let makers = [
   {
     name: '@electron-forge/maker-dmg',
     platforms: ['darwin'],
-    config: {},
+    config: {
+      // Dirty hack - use unsupported format
+      //so appdmg would set default DMG icon.
+      // Without it electron icon would be used.
+      icon: 'assets/appIcon.png',
+      // Faster, but OS X 10.11+ only.
+      format: 'ULFO',
+    },
   },
   {
     name: '@electron-forge/maker-deb',
@@ -27,6 +40,7 @@ let makers = [
   },
 ];
 if (process.env.NODE_ENV == 'production') {
+  // Prevents accidental publishing of non-production builds.
   publishers = publishers.concat([
     {
       name: '@electron-forge/publisher-github',
@@ -40,14 +54,8 @@ if (process.env.NODE_ENV == 'production') {
       },
     },
   ]);
+  // Since signings is slow, do it only for production builds.
   packagerConfig = Object.assign(packagerConfig, {
-    name: EXECUTABLE_NAME,
-    executableName: EXECUTABLE_NAME,
-    icon: 'assets/appIcon',
-    appBundleId: 'com.vvvoin.leobar',
-    extendInfo: {
-      LSUIElement: 'true',
-    },
     osxSign: {
       hardenedRuntime: false,
       gatekeeperAssess: false,
