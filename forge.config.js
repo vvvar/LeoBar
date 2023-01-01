@@ -18,7 +18,11 @@ let makers = [
   },
   {
     name: '@electron-forge/maker-deb',
-    config: {},
+    config: {
+      options: {
+        name: 'LeoBar',
+      },
+    },
   },
 ];
 if (process.env.NODE_ENV == 'production') {
