@@ -1,4 +1,9 @@
-require('update-electron-app')();
+// Signing is done only for production build.
+// Auto-update available only for signed apps.
+// Thus, disable it for non-propduction.
+if (process.env.NODE_ENV == 'production') {
+  require('update-electron-app')();
+}
 const {
   app,
   nativeImage,
