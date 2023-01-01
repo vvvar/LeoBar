@@ -1,5 +1,5 @@
 <h1 align="center"><img width="100" src="assets/macos/appIcon.png" /></h1>
-<h1 align="center">Leo.org Menu Bar Widget</h1>
+<h1 align="center">Leo.org Menu Bar Client</h1>
 <p align="center">Free and simple app that integrates <a href="https://www.leo.org/">Leo.org</a> dictionary into your menu bar.</p>
 <p align="center">
     <a href="https://github.com/vvvar/leo-bar/releases/latest"><b>Download</b></a> •
