@@ -1,9 +1,6 @@
 {
   "name": "leo-bar",
   "productName": "LeoBar",
-  "packagerConfig": {
-    "executableName": "LeoBar"
-  },
   "version": "0.1.0",
   "description": "Menu bar client for LEO.org dictionaries.",
   "main": "src/index.js",
