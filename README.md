@@ -1,6 +1,6 @@
 <h1 align="center"><img width="100" src="assets/macos/appIcon.png" /></h1>
-<h1 align="center">Leo.org Menu Bar Client</h1>
-<p align="center">Free and simple app that integrates <a href="https://www.leo.org/">Leo.org</a> dictionary into your menu bar.</p>
+<h1 align="center">Leo.org Desktop</h1>
+<p align="center">Desktop client for <a href="https://www.leo.org/">Leo.org</a> multilingual online dictionary, integrated into your menu bar.</p>
 <p align="center">
     <a href="https://github.com/vvvar/leo-bar/releases/latest"><b>Download</b></a> •
     <a href="https://github.com/vvvar/leo-bar/issues"><b>Open Issue</b></a>
@@ -8,12 +8,15 @@
 
 ![screenshot](assets/screenshot.png)
 
+## Motivation
+
+I'm learning German at the moment and Leo.org is my primary disctionary. I found it useful to have it accessible from menu bar so i could quickly open/close it without switching tabs in a browser. Did it for myself initially and then thought that it could be usefult to share it.
+
 ## Supported Platforms
 
 - macOS 
     - Both Intel and Apple Silicon are supported.
-    - Tested with macOS 12 Monterey.
-    - macOS Ventura support is not yet confirmed.
+    - Tested with macOS 12 Monterey and macOS 13 Ventura.
 - Windows
     - Tested with Windows 10
     - Windows 11 support is not yet confirmed.
