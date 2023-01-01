@@ -1,0 +1,61 @@
+name: Execute Merge Checks
+run-name: 'Merge checks for PR #${{ github.event.number }}'
+on: pull_request
+
+env:
+  BUILD_ID: '${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}'
+
+jobs:
+  ubuntu:
+    name: Ubuntu
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: 'package.json'
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+      - name: Build
+        run: npm run package
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Linux-${{ env.BUILD_ID }}.zip
+          path: ${{github.workspace}}/out/
+
+  macos:
+    name: macOS
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: 'package.json'
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+      - name: Build
+        run: npm run package -- --arch arm64,x64
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: MacOS-${{ env.BUILD_ID }}.zip
+          path: ${{github.workspace}}/out/
+
+  windows:
+    name: Windows
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: 'package.json'
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+      - name: Build
+        run: npm run package
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Windows-${{ env.BUILD_ID }}.zip
+          path: ${{github.workspace}}/out/
