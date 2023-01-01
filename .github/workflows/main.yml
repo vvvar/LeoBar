@@ -70,7 +70,7 @@ jobs:
           MACOS_APPLE_TEAM_ID: ${{ secrets.MACOS_APPLE_TEAM_ID }}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_ENV: production
-        run: npm run publish
+        run: npm run publish -- --arch arm64,x64
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
