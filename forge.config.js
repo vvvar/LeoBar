@@ -20,7 +20,7 @@ let makers = [
     name: '@electron-forge/maker-deb',
     config: {
       options: {
-        name: 'LeoBar',
+        bin: 'LeoBar',
       },
     },
   },
