@@ -24,7 +24,7 @@ jobs:
       - name: install dependencies
         run: npm install
       - name: build
-        run: npm run package
+        run: npm run package -- --arch arm64,x64
 
   build_on_win:
     runs-on: windows-latest
