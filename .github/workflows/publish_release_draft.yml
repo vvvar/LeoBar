@@ -23,7 +23,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_ENV: production
-        run: npm run publish
+        run: npm run publish -- --arch x64
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
