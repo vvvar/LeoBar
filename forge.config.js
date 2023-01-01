@@ -10,7 +10,6 @@ let makers = [
   },
   {
     name: '@electron-forge/maker-dmg',
-    platforms: ['darwin'],
     config: {},
   },
   {
