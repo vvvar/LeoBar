@@ -1,7 +1,11 @@
 require('dotenv').config();
 
+const EXECUTABLE_NAME = 'LeoBar';
+
 let publishers = [];
-let packagerConfig = {};
+let packagerConfig = {
+  executableName: EXECUTABLE_NAME,
+};
 let rebuildConfig = {};
 let makers = [
   {
@@ -18,7 +22,7 @@ let makers = [
   },
 ];
 if (process.env.NODE_ENV == 'production') {
-  publishers = [
+  publishers = publishers.concat([
     {
       name: '@electron-forge/publisher-github',
       config: {
@@ -30,10 +34,10 @@ if (process.env.NODE_ENV == 'production') {
         draft: true,
       },
     },
-  ];
-  packagerConfig = {
-    name: 'LeoBar',
-    executableName: 'LeoBar',
+  ]);
+  packagerConfig = Object.assign(packagerConfig, {
+    name: EXECUTABLE_NAME,
+    executableName: EXECUTABLE_NAME,
     icon: 'assets/appIcon',
     appBundleId: 'com.vvvoin.leobar',
     extendInfo: {
@@ -51,7 +55,7 @@ if (process.env.NODE_ENV == 'production') {
       appleIdPassword: process.env.MACOS_APPLE_PASSWORD,
       teamId: process.env.MACOS_APPLE_TEAM_ID,
     },
-  };
+  });
 }
 
 module.exports = { publishers, packagerConfig, rebuildConfig, makers };
