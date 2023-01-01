@@ -5,27 +5,27 @@ on:
       - main
 
 jobs:
-  build_on_linux:
+  publish_linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@master
         with:
           node-version: 14
-      - name: install dependencies
+      - name: Install Dependencies
         run: npm install
-      - name: build
+      - name: Make, Package & Publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_ENV: production
-        run: npm run package
-      - name: upload artifacts
+        run: npm run publish
+      - name: Collect & Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: linux
+          name: Linux.zip
           path: ${{github.workspace}}/out/
 
-  release_on_mac:
+  publish_macos:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-      - name: publish
+      - name: Make, Package & Publish
         env:
           MACOS_APPLE_IDENTITY: ${{ secrets.MACOS_APPLE_IDENTITY }}
           MACOS_APPLE_ID: ${{ secrets.MACOS_APPLE_ID }}
@@ -71,13 +71,13 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_ENV: production
         run: npm run publish -- --arch arm64,x64
-      - name: upload artifacts
+      - name: Collect & Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: macos
+          name: MacOS.zip
           path: ${{github.workspace}}/out/
 
-  release_on_win:
+  publish_windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -86,13 +86,13 @@ jobs:
           node-version: 14
       - name: install dependencies
         run: npm install
-      - name: publish
+      - name: Make, Package & Publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_ENV: production
         run: npm run publish
-      - name: upload artifacts
+      - name: Collect & Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: windows
+          name: Windows.zip
           path: ${{github.workspace}}/out/
