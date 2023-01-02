@@ -144,20 +144,22 @@ app.on('web-contents-created', (e, contents) => {
     contextMenu({
       window: contents,
     });
-    // we can't set the native app menu with "menubar" so need to manually register these events
-    // register cmd+c/cmd+v events
-    contents.on('before-input-event', (event, input) => {
-      const { control, meta, key } = input;
-      if (!control && !meta) return;
-      if (key === 'c') contents.copy();
-      if (key === 'v') contents.paste();
-      if (key === 'x') contents.cut();
-      if (key === 'a') contents.selectAll();
-      if (key === 'z') contents.undo();
-      if (key === 'y') contents.redo();
-      if (key === 'q') app.quit();
-      if (key === 'r') contents.reload();
-    });
+    // We can't set the native app menu with "menubar" on macOS,
+    // so need to manually register these keyboard events.
+    if (platform.isMac) {
+      contents.on('before-input-event', (event, input) => {
+        const { control, meta, key } = input;
+        if (!control && !meta) return;
+        if (key === 'c') contents.copy();
+        if (key === 'v') contents.paste();
+        if (key === 'x') contents.cut();
+        if (key === 'a') contents.selectAll();
+        if (key === 'z') contents.undo();
+        if (key === 'y') contents.redo();
+        if (key === 'q') app.quit();
+        if (key === 'r') contents.reload();
+      });
+    }
   }
 });
 
