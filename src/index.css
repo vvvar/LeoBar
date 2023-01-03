@@ -10,6 +10,16 @@ body {
   --actual-height: calc(100vh - 12px);
 }
 
+#draggable {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  top: 0;
+}
+
 .myarrow {
   position: relative;
   /* padding-top: 12px; */
