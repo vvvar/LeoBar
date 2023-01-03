@@ -7,7 +7,7 @@ let publishers = [];
 let packagerConfig = {
   name: EXECUTABLE_NAME,
   executableName: EXECUTABLE_NAME,
-  icon: iconset.getAppIconPath(),
+  icon: iconset.getAppIconIcoPath(),
   appBundleId: 'com.vvvoin.leobar',
   extendInfo: {
     LSUIElement: 'true',
