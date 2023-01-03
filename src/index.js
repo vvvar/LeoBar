@@ -1,9 +1,16 @@
+// Squirrel on Windows will spawn app
+// with command line flags on first run.
+// App should handle these events as early as possible,
+// and quit immediately after handling them.
+if (require('electron-squirrel-startup')) return;
+
 // Signing is done only for production build.
 // Auto-update available only for signed apps.
 // Thus, disable it for non-propduction.
 if (process.env.NODE_ENV == 'production') {
   require('update-electron-app')();
 }
+
 const {
   app,
   nativeImage,

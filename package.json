@@ -1,7 +1,7 @@
 {
   "name": "leo-bar",
   "productName": "LeoBar",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Menu bar client for LEO.org dictionaries.",
   "main": "src/index.js",
   "scripts": {
